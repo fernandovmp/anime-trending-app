@@ -4,12 +4,162 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="AnimeTrendingApp.Views.TrendingPage">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>
+             x:Class="AnimeTrendingApp.Views.TrendingPage"
+             BackgroundColor="WhiteSmoke"
+             Title="Trendings">
+    <CollectionView
+        Margin="0, 10"
+        ItemsSource="{Binding Trendings}"
+    >
+        <CollectionView.EmptyView>
+            <FlexLayout
+                AlignItems="Center"
+                JustifyContent="Center"
+            >
+                <ActivityIndicator 
+                    IsRunning="True"
+                />
+            </FlexLayout>
+        </CollectionView.EmptyView>
+        <CollectionView.ItemsLayout>
+            <LinearItemsLayout
+                Orientation="Vertical"
+                ItemSpacing="10"
+            />
+        </CollectionView.ItemsLayout>
+        <CollectionView.ItemTemplate>
+            <DataTemplate>
+                <ContentView>
+                    <Frame
+                        Padding="0"
+                        CornerRadius="5"
+                        IsClippedToBounds="True"
+                        HeightRequest="200"
+                        Margin="15, 0"
+                    >
+                        <FlexLayout Direction="Row">
+                            <Grid>
+                                <Image 
+                                    Source="{Binding PosterImage.Large}"
+                                
+                                />
+                                <Frame
+                                    Padding="0"
+                                    CornerRadius="5"
+                                    BackgroundColor="Black"
+                                    Opacity="0.8"
+                                    Margin="0, 170, 50, 0"
+                                >
+                                    <Label
+                                        Text="{Binding AverageRating, StringFormat='{0}%'}"
+                                        TextColor="LimeGreen"
+                                        FontAttributes="Bold"
+                                        FontSize="Medium"
+                                        VerticalTextAlignment="Center"
+                                        HorizontalTextAlignment="Center"
+                                    />
+                                </Frame>
+
+
+                            </Grid>
+                            <FlexLayout 
+                                Direction="Column" 
+                                FlexLayout.Grow="1"
+                                Margin="15, 5"
+                            >
+                                <Label 
+                                    Text="{Binding CanonicalTitle}" 
+                                    FontSize="Large"
+                                    TextColor="DarkSlateGray"
+                                    FlexLayout.Grow="1"
+                                />
+                                <FlexLayout
+                                    Direction="Row"
+                                    FlexLayout.Grow="1"
+                                    JustifyContent="SpaceBetween"
+                                >
+                                    <Grid FlexLayout.Grow="1">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="20"/>
+                                            <RowDefinition Height="20"/>
+                                        </Grid.RowDefinitions>
+                                        <Label
+                                            FontSize="Small"
+                                            Text="{Binding PopularityRank, StringFormat='#{0}'}"
+                                        />
+                                        <Label
+                                            Grid.Row="1"
+                                            FontSize="Small"
+                                            Text="most popular"
+                                        />
+                                    </Grid>
+
+                                    <Grid FlexLayout.Grow="1">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="20"/>
+                                            <RowDefinition Height="20"/>
+                                        </Grid.RowDefinitions>
+                                        <Label
+                                            FontSize="Small"
+                                            Text="{Binding RatingRank, StringFormat='#{0}'}"
+                                        />
+                                        <Label
+                                            Grid.Row="1"
+                                            FontSize="Small"
+                                            Text="highest rated"
+                                        />
+                                    </Grid>
+                                </FlexLayout>
+                                <FlexLayout
+                                    Direction="Row"
+                                    FlexLayout.Grow="1"
+                                >
+                                    <Grid
+                                        FlexLayout.Grow="1"
+                                    >
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="15" />
+                                            <RowDefinition Height="15" />
+                                        </Grid.RowDefinitions>
+                                        <Label
+                                            Grid.Row="0"
+                                            FontSize="Small"
+                                            Text="Start:"
+                                        />
+                                        <Label
+                                            Grid.Row="1"
+                                            FontSize="Small"
+                                            Text="{Binding StartDate, StringFormat='{0:MM/dd/yyyy}'}"
+                                        />
+                                    </Grid>
+                                    <Grid
+                                        FlexLayout.Grow="1"
+                                    >
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="15" />
+                                            <RowDefinition Height="15" />
+                                        </Grid.RowDefinitions>
+                                        <Label
+                                            Grid.Row="0"
+                                            FontSize="Small"
+                                            Text="End:"
+                                        />
+                                        <Label
+                                            Grid.Row="1"
+                                            FontSize="Small"
+                                            Text="{Binding EndDate, StringFormat='{0:MM/dd/yyyy}'}"
+                                        />
+                                    </Grid>
+                                </FlexLayout>
+                                <Label 
+                                    Text="{Binding EpisodeCount, StringFormat='Episode Count: {0}'}"
+                                    FontSize="Small"
+                                />
+                            </FlexLayout>
+                        </FlexLayout>
+                    </Frame>
+                </ContentView>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
 </ContentPage>

@@ -15,6 +15,7 @@ namespace AnimeTrendingApp.Views
         public TrendingPage()
         {
             InitializeComponent();
+            BindingContext = new ViewModels.TrendingViewModel();
         }
     }
 }
