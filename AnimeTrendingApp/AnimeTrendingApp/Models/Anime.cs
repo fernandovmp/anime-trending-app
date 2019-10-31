@@ -15,5 +15,7 @@ namespace AnimeTrendingApp.Models
         public int? EpisodeCount { get; set; }
         public PosterImage PosterImage { get; set; }
         public PosterImage CoverImage { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
     }
 }
