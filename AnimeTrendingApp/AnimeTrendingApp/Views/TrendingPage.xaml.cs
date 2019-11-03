@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AnimeTrendingApp.Controls;
+using AnimeTrendingApp.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +18,15 @@ namespace AnimeTrendingApp.Views
         {
             InitializeComponent();
             BindingContext = new ViewModels.TrendingViewModel();
+        }
+
+        private async void AnimeCardTapped(object sender, EventArgs e)
+        {
+            object anime = (sender as AnimeCard).BindingContext;
+            await Navigation.PushAsync(new AnimePage
+            {
+                BindingContext = anime
+            });
         }
     }
 }

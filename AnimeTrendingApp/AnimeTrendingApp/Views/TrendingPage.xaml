@@ -30,7 +30,11 @@
         </CollectionView.ItemsLayout>
         <CollectionView.ItemTemplate>
             <DataTemplate>
-                <controls:AnimeCard BindingContext="{Binding .}"/>
+                <controls:AnimeCard BindingContext="{Binding .}">
+                    <controls:AnimeCard.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="AnimeCardTapped"/>
+                    </controls:AnimeCard.GestureRecognizers>
+                </controls:AnimeCard>
             </DataTemplate>
         </CollectionView.ItemTemplate>
     </CollectionView>
