@@ -10,11 +10,11 @@ namespace AnimeTrendingApp.ViewModels
 {
     public class TrendingViewModel : BaseViewModel
     {
-        private readonly AnimeService _animeService;
+        private readonly IAnimeService _animeService;
 
-        public TrendingViewModel()
+        public TrendingViewModel(IAnimeService animeService)
         {
-            _animeService = new AnimeService();
+            _animeService = animeService;
             Task.Run(() => GetTrendings());
         }
 

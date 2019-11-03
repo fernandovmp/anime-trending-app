@@ -1,5 +1,9 @@
-﻿using AnimeTrendingApp.Views;
+﻿using AnimeTrendingApp.Services;
+using AnimeTrendingApp.ViewModels;
+using AnimeTrendingApp.Views;
+using DryIoc;
 using System;
+using System.Net.Http;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -11,8 +15,15 @@ namespace AnimeTrendingApp
         {
             InitializeComponent();
 
+            Container = new Container();
+            Container.RegisterInstance(new HttpClient());
+            Container.Register<IAnimeService, AnimeService>(Reuse.Singleton);
+            Container.Register<TrendingViewModel>(Reuse.Transient);
+
             MainPage = new NavigationPage(new TrendingPage());
         }
+
+        public IContainer Container { get; private set; }
 
         protected override void OnStart()
         {

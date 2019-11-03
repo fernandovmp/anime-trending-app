@@ -17,7 +17,8 @@ namespace AnimeTrendingApp.Views
         public TrendingPage()
         {
             InitializeComponent();
-            BindingContext = new ViewModels.TrendingViewModel();
+            BindingContext = (Application.Current as App).Container
+                .Resolve(typeof(ViewModels.TrendingViewModel), DryIoc.IfUnresolved.ReturnDefault);
         }
 
         private async void AnimeCardTapped(object sender, EventArgs e)

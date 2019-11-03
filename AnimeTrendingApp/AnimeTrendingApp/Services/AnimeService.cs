@@ -12,15 +12,15 @@ using System.Threading.Tasks;
 
 namespace AnimeTrendingApp.Services
 {
-    public class AnimeService
+    public class AnimeService : IAnimeService
     {
         private readonly HttpClient _client;
         public const string API_BASE_URL = "https://kitsu.io/api/edge";
         public const string TRENDING_ANIMES_ENDPOINT = API_BASE_URL + "/trending/anime";
 
-        public AnimeService()
+        public AnimeService(HttpClient httpClient)
         {
-            _client = new HttpClient();
+            _client = httpClient;
         }
 
         public async Task<ObservableCollection<Anime>> GetTrendingAnimes()
