@@ -56,10 +56,15 @@
                                 <RowDefinition Height="20"/>
                                 <RowDefinition Height="20"/>
                             </Grid.RowDefinitions>
-                            <Label
-                                FontSize="Small"
-                                Text="{Binding PopularityRank, StringFormat='#{0}'}"
-                            />
+                            <StackLayout
+                                Orientation="Horizontal"
+                            >
+                                <Image Source="heart"/>
+                                <Label
+                                    FontSize="Small"
+                                    Text="{Binding PopularityRank, StringFormat='#{0}'}"
+                                />
+                            </StackLayout>
                             <Label
                                 Grid.Row="1"
                                 FontSize="Small"
@@ -72,10 +77,15 @@
                                 <RowDefinition Height="20"/>
                                 <RowDefinition Height="20"/>
                             </Grid.RowDefinitions>
-                            <Label
-                                FontSize="Small"
-                                Text="{Binding RatingRank, StringFormat='#{0}'}"
-                            />
+                            <StackLayout
+                                Orientation="Horizontal"
+                            >
+                                <Image Source="star"/>
+                                <Label
+                                    FontSize="Small"
+                                    Text="{Binding RatingRank, StringFormat='#{0}'}"
+                                />
+                            </StackLayout>
                             <Label
                                 Grid.Row="1"
                                 FontSize="Small"
