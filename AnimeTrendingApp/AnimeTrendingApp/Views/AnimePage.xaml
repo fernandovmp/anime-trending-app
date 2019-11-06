@@ -12,130 +12,136 @@
         <StackLayout>
             <Frame>
                 <FlexLayout
-                    Direction="Row"
-                    HeightRequest="230"
+                    Direction="Column"
+                    Wrap="Wrap"
                 >
                     <Frame
                         Padding="0"
                         IsClippedToBounds="True"
                         CornerRadius="5"
                         HeightRequest="200"
+                        WidthRequest="145"
                     >
                         <Image
                             Source="{Binding PosterImage.Large}"
                         />
                     </Frame>
-                    <FlexLayout
-                        Direction="Column"
+                    <ContentView
                         FlexLayout.Grow="1"
+                        WidthRequest="250"
                         Margin="10, 0"
                     >
-                        <Label
-                            FlexLayout.Grow="1"
-                        >
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span 
-                                        Text="{Binding CanonicalTitle}"
-                                        TextColor="Black"
-                                        FontSize="Title"
-                                    />
-                                    <Span
-                                        Text="{Binding StartDate, StringFormat='  {0:yyyy}'}"
-                                        FontSize="Medium"
-                                    />
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                        <Label
-                            Margin="0, 5, 0, 0"
-                            Text="{Binding AverageRating, StringFormat='{0}% community approval'}"
-                            TextColor="LimeGreen"
-                            FontSize="Medium"
-                            FlexLayout.Grow="1"
-                        />
-                        <FlexLayout
-                            Direction="Row"
-                            FlexLayout.Grow="1"
-                            JustifyContent="SpaceBetween"
-                        >
-                            <Grid FlexLayout.Grow="1">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="15"/>
-                                    <RowDefinition Height="15"/>
-                                </Grid.RowDefinitions>
-                                <StackLayout
-                                    Orientation="Horizontal"
-                                >
-                                    <Image Source="heart"/>
-                                    <Label
-                                        FontSize="Small"
-                                        Text="{Binding PopularityRank, StringFormat='#{0}'}"
-                                    />
-                                </StackLayout>
-                                <Label
-                                    Grid.Row="1"
-                                    FontSize="Small"
-                                    Text="most popular"
-                                />
-                            </Grid>
 
-                            <Grid FlexLayout.Grow="1">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="15"/>
-                                    <RowDefinition Height="15"/>
-                                </Grid.RowDefinitions>
-                                <StackLayout
-                                    Orientation="Horizontal"
-                                >
-                                    <Image Source="star"/>
+                        <FlexLayout
+                            Direction="Column"
+                        >
+                            <Label
+                                FlexLayout.Grow="1"
+                            >
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span 
+                                            Text="{Binding CanonicalTitle}"
+                                            TextColor="Black"
+                                            FontSize="Title"
+                                        />
+                                        <Span
+                                            Text="{Binding StartDate, StringFormat='  {0:yyyy}'}"
+                                            FontSize="Medium"
+                                        />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <Label
+                                Margin="0, 5, 0, 0"
+                                Text="{Binding AverageRating, StringFormat='{0}% community approval'}"
+                                TextColor="LimeGreen"
+                                FontSize="Medium"
+                                FlexLayout.Grow="1"
+                            />
+                            <FlexLayout
+                                Direction="Row"
+                                JustifyContent="SpaceBetween"
+                                FlexLayout.Basis="45"
+                            >
+                                <Grid FlexLayout.Grow="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="15"/>
+                                        <RowDefinition Height="30"/>
+                                    </Grid.RowDefinitions>
+                                    <StackLayout
+                                        Orientation="Horizontal"
+                                    >
+                                        <Image Source="heart"/>
+                                        <Label
+                                            FontSize="Small"
+                                            Text="{Binding PopularityRank, StringFormat='#{0}'}"
+                                        />
+                                    </StackLayout>
                                     <Label
+                                        Grid.Row="1"
                                         FontSize="Small"
-                                        Text="{Binding RatingRank, StringFormat='#{0}'}"
+                                        Text="most popular"
                                     />
-                                </StackLayout>
-                                <Label
-                                    Grid.Row="1"
-                                    FontSize="Small"
-                                    Text="highest rated"
-                                />
-                            </Grid>
+                                </Grid>
+
+                                <Grid FlexLayout.Grow="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="15"/>
+                                        <RowDefinition Height="30"/>
+                                    </Grid.RowDefinitions>
+                                    <StackLayout
+                                        Orientation="Horizontal"
+                                    >
+                                        <Image Source="star"/>
+                                        <Label
+                                            FontSize="Small"
+                                            Text="{Binding RatingRank, StringFormat='#{0}'}"
+                                        />
+                                    </StackLayout>
+                                    <Label
+                                        Grid.Row="1"
+                                        FontSize="Small"
+                                        Text="highest rated"
+                                    />
+                                </Grid>
+                            </FlexLayout>
+                            <Label>
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span
+                                            Text="Episodes  "
+                                            TextColor="Black"
+                                            FontSize="Medium"
+                                            FontAttributes="Bold"
+                                        />
+                                        <Span 
+                                            Text="{Binding EpisodeCount, TargetNullValue='-'}"
+                                            FontSize="Medium"
+                                            TextColor="SlateGray"
+                                        />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <Label>
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span
+                                            Text="Status    "
+                                            FontSize="Medium"
+                                            TextColor="Black"
+                                            FontAttributes="Bold"
+                                        />
+                                        <Span 
+                                            Text="{Binding Status}"
+                                            TextColor="SlateGray"
+                                            FontSize="Medium"
+                                        />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
                         </FlexLayout>
-                        <Label>
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span
-                                        Text="Episodes  "
-                                        TextColor="Black"
-                                        FontSize="Medium"
-                                        FontAttributes="Bold"
-                                    />
-                                    <Span 
-                                        Text="{Binding EpisodeCount, TargetNullValue='-'}"
-                                        FontSize="Medium"
-                                        TextColor="SlateGray"
-                                    />
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                        <Label>
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span
-                                        Text="Status    "
-                                        FontSize="Medium"
-                                        TextColor="Black"
-                                        FontAttributes="Bold"
-                                    />
-                                    <Span 
-                                        Text="{Binding Status}"
-                                        TextColor="SlateGray"
-                                        FontSize="Medium"
-                                    />
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                    </FlexLayout>
+                    </ContentView>
                 </FlexLayout>
             </Frame>
             <Frame
