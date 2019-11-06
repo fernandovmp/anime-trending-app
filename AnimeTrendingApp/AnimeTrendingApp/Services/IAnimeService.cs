@@ -10,5 +10,6 @@ namespace AnimeTrendingApp.Services
     public interface IAnimeService
     {
         Task<ObservableCollection<Anime>> GetTrendingAnimes();
+        Task<ObservableCollection<Anime>> GetSeasonTrendingAnimes();
     }
 }

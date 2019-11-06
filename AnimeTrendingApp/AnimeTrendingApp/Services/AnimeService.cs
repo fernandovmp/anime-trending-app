@@ -14,40 +14,66 @@ namespace AnimeTrendingApp.Services
 {
     public class AnimeService : IAnimeService
     {
-        private readonly HttpClient _client;
         public const string API_BASE_URL = "https://kitsu.io/api/edge";
         public const string TRENDING_ANIMES_ENDPOINT = API_BASE_URL + "/trending/anime";
+        public const string ANIME_ENDPOINT = API_BASE_URL + "/anime";
 
+        private readonly HttpClient _client;
+        private readonly string[] _seasons =
+        {
+            "winter",
+            "spring",
+            "summer",
+            "fall"
+        };
+        
         public AnimeService(HttpClient httpClient)
         {
             _client = httpClient;
         }
 
-        public async Task<ObservableCollection<Anime>> GetTrendingAnimes()
+        private async Task<ObservableCollection<Anime>> GetAnimeCollection(HttpResponseMessage response)
         {
             var animes = new ObservableCollection<Anime>();
+            var definition = new
+            {
+                Data = new[]
+                {
+                        new { Attributes = new Anime() }
+                    }
+            };
+            string content = await response.Content.ReadAsStringAsync();
+            var animesList = JsonConvert.DeserializeAnonymousType(content, definition).Data;
+            foreach (var anime in animesList)
+            {
+                animes.Add(anime.Attributes);
+            }
+            return animes;
+        }
 
+        public async Task<ObservableCollection<Anime>> GetTrendingAnimes()
+        {
             var uri = new Uri(TRENDING_ANIMES_ENDPOINT);
             HttpResponseMessage response = await _client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {
-                string content = await response.Content.ReadAsStringAsync();
-
-                var definition = new
-                {
-                    Data = new[]
-                    {
-                        new { Attributes = new Anime() }
-                    }
-                };
-
-                var animesList = JsonConvert.DeserializeAnonymousType(content, definition).Data;
-                foreach (var anime in animesList)
-                {
-                    animes.Add(anime.Attributes);
-                }
+                return await GetAnimeCollection(response);
             }
-            return animes;
+            return new ObservableCollection<Anime>();
+        }
+
+        public async Task<ObservableCollection<Anime>> GetSeasonTrendingAnimes()
+        {
+            int year = DateTime.Today.Year;
+            string season = _seasons[(DateTime.Today.Month - 1) / 3];
+            var uri = new Uri(ANIME_ENDPOINT +
+                $"?filter[status]=current&filter[season]={season}&filter[year]={year}&sort=-user_count");
+            HttpResponseMessage response = await _client.GetAsync(uri);
+            if (response.IsSuccessStatusCode)
+            {
+                return await GetAnimeCollection(response);
+            }
+            return new ObservableCollection<Anime>();
         }
     }
 }
