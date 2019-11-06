@@ -135,9 +135,17 @@
                         </Grid>
                     </FlexLayout>
                     <Label 
-                        Text="{Binding EpisodeCount, StringFormat='Episode Count: {0}'}"
                         FontSize="Small"
-                    />
+                    >
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Episode Count: "/>
+                                <Span 
+                                    Text="{Binding EpisodeCount, TargetNullValue='---'}"
+                                />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
                 </FlexLayout>
             </FlexLayout>
         </Frame>
