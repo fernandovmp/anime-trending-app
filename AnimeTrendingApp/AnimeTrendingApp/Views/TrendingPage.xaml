@@ -8,34 +8,48 @@
              x:Class="AnimeTrendingApp.Views.TrendingPage"
              BackgroundColor="WhiteSmoke"
              Title="Trendings">
-    <CollectionView
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Text="{Binding FilterToolbarItemText}"
+            Command="{Binding FilterCommand}"
+        />
+    </ContentPage.ToolbarItems>
+    <FlexLayout 
+        Direction="Column"
         Margin="0, 10"
-        ItemsSource="{Binding Trendings}"
     >
-        <CollectionView.EmptyView>
-            <FlexLayout
-                AlignItems="Center"
-                JustifyContent="Center"
-            >
-                <ActivityIndicator 
-                    IsRunning="True"
-                />
-            </FlexLayout>
-        </CollectionView.EmptyView>
-        <CollectionView.ItemsLayout>
-            <LinearItemsLayout
-                Orientation="Vertical"
-                ItemSpacing="10"
+        <FlexLayout
+            AlignItems="Center"
+            JustifyContent="Center"
+            FlexLayout.Grow="1"
+        >
+            <ActivityIndicator
+                IsRunning="{Binding IsBusy}"
             />
-        </CollectionView.ItemsLayout>
-        <CollectionView.ItemTemplate>
-            <DataTemplate>
-                <controls:AnimeCard BindingContext="{Binding .}">
-                    <controls:AnimeCard.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="AnimeCardTapped"/>
-                    </controls:AnimeCard.GestureRecognizers>
-                </controls:AnimeCard>
-            </DataTemplate>
-        </CollectionView.ItemTemplate>
-    </CollectionView>
+        </FlexLayout>
+        <CollectionView
+            ItemsSource="{Binding Trendings}"
+        >
+            <CollectionView.Triggers>
+                <DataTrigger TargetType="CollectionView" Binding="{Binding IsBusy}" Value="True">
+                    <Setter Property="IsVisible" Value="False"/>
+                </DataTrigger>
+            </CollectionView.Triggers>
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout
+                    Orientation="Vertical"
+                    ItemSpacing="10"
+                />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <controls:AnimeCard BindingContext="{Binding .}">
+                        <controls:AnimeCard.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="AnimeCardTapped"/>
+                        </controls:AnimeCard.GestureRecognizers>
+                    </controls:AnimeCard>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </FlexLayout>
 </ContentPage>
