@@ -21,7 +21,7 @@ namespace AnimeTrendingApp.ViewModels
         public TrendingViewModel(IAnimeService animeService)
         {
             _animeService = animeService;
-            Task.Run(() => GetTrendings());
+            GetTrendings();
             FilterCommand = new Command(ApplyFilter);
         }
 
@@ -43,33 +43,29 @@ namespace AnimeTrendingApp.ViewModels
             set => SetProperty(ref _filterToolbarItemText, value);
         }
 
-        private async Task GetTrendings()
+        private async Task FetchCollection(Task<ObservableCollection<Anime>> fetchTask)
         {
             IsBusy = true;
-            Trendings = await _animeService.GetTrendingAnimes();
+            Trendings = await fetchTask;
             OnPropertyChanged(nameof(Trendings));
             IsBusy = false;
         }
 
-        private async Task GetSeasonTrendings()
-        {
-            IsBusy = true;
-            Trendings = await _animeService.GetSeasonTrendingAnimes();
-            OnPropertyChanged(nameof(Trendings));
-            IsBusy = false;
-        }
+        private void GetTrendings() => Task.Run(() => FetchCollection(_animeService.GetTrendingAnimes()));
+
+        private void GetSeasonTrendings() => Task.Run(() => FetchCollection(_animeService.GetSeasonTrendingAnimes()));
 
         private void ApplyFilter()
         {
             if(Filter == Filter.All)
             {
                 Filter = Filter.Season;
-                Task.Run(() => GetSeasonTrendings());
+                GetSeasonTrendings();
                 FilterToolbarItemText = "Season";
                 return;
             }
             Filter = Filter.All;
-            Task.Run(() => GetTrendings());
+            GetTrendings();
             FilterToolbarItemText = "All";
         }
     }
