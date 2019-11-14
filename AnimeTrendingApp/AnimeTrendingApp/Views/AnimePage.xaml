@@ -11,33 +11,27 @@
     <ScrollView>
         <StackLayout>
             <Frame>
-                <FlexLayout
-                    Direction="Column"
-                    Wrap="Wrap"
-                >
-                    <Frame
-                        Padding="0"
-                        IsClippedToBounds="True"
-                        CornerRadius="5"
-                        HeightRequest="200"
-                        WidthRequest="145"
-                    >
-                        <Image
-                            Source="{Binding PosterImage.Large}"
-                        />
-                    </Frame>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="200"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="140"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image
+                        Source="{Binding PosterImage.Large}"
+                     />
                     <ContentView
-                        FlexLayout.Grow="1"
-                        WidthRequest="250"
+                        Grid.Column="1"
+                        Grid.RowSpan="2"
                         Margin="10, 0"
                     >
-
-                        <FlexLayout
-                            Direction="Column"
+                        <StackLayout
+                            Orientation="Vertical"
                         >
-                            <Label
-                                FlexLayout.Grow="1"
-                            >
+                            <Label>
                                 <Label.FormattedText>
                                     <FormattedString>
                                         <Span 
@@ -53,21 +47,17 @@
                                 </Label.FormattedText>
                             </Label>
                             <Label
-                                Margin="0, 5, 0, 0"
                                 Text="{Binding AverageRating, StringFormat='{0}% community approval'}"
                                 TextColor="LimeGreen"
                                 FontSize="Medium"
-                                FlexLayout.Grow="1"
                             />
                             <FlexLayout
                                 Direction="Row"
-                                JustifyContent="SpaceBetween"
-                                FlexLayout.Basis="45"
                             >
                                 <Grid FlexLayout.Grow="1">
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="15"/>
-                                        <RowDefinition Height="30"/>
+                                        <RowDefinition Height="20"/>
+                                        <RowDefinition Height="20"/>
                                     </Grid.RowDefinitions>
                                     <StackLayout
                                         Orientation="Horizontal"
@@ -87,8 +77,8 @@
 
                                 <Grid FlexLayout.Grow="1">
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="15"/>
-                                        <RowDefinition Height="30"/>
+                                        <RowDefinition Height="20"/>
+                                        <RowDefinition Height="20"/>
                                     </Grid.RowDefinitions>
                                     <StackLayout
                                         Orientation="Horizontal"
@@ -140,9 +130,9 @@
                                     </FormattedString>
                                 </Label.FormattedText>
                             </Label>
-                        </FlexLayout>
+                        </StackLayout>
                     </ContentView>
-                </FlexLayout>
+                </Grid>
             </Frame>
             <Frame
                 Margin="20"
