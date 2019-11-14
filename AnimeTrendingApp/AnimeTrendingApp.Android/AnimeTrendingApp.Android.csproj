@@ -109,7 +109,9 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\icon.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\launcher_foreground.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\cloudoffoutline.png" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AnimeTrendingApp\AnimeTrendingApp.csproj">
       <Project>{296CA84D-5087-40B1-9AF5-B3A9D5FCD685}</Project>

@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using Xamarin.Essentials;
 
 namespace AnimeTrendingApp.ViewModels
 {
@@ -17,12 +18,34 @@ namespace AnimeTrendingApp.ViewModels
         private bool _isBusy;
         private Filter _filter;
         private string _filterToolbarItemText = "All";
+        private bool _isNotConnected;
 
         public TrendingViewModel(IAnimeService animeService)
         {
             _animeService = animeService;
             GetTrendings();
             FilterCommand = new Command(ApplyFilter);
+            IsNotConnected = Connectivity.NetworkAccess != NetworkAccess.Internet;
+            Connectivity.ConnectivityChanged += Connectivity_ConnectivityChanged;
+        }
+
+        ~TrendingViewModel()
+        {
+            Connectivity.ConnectivityChanged -= Connectivity_ConnectivityChanged;
+        }
+
+        private void Connectivity_ConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
+        {
+            IsNotConnected = e.NetworkAccess != NetworkAccess.Internet;
+            if(!IsNotConnected)
+            {
+                if(Filter == Filter.All)
+                {
+                    GetTrendings();
+                    return;
+                }
+                GetSeasonTrendings();
+            }
         }
 
         public ObservableCollection<Anime> Trendings { get; private set; }
@@ -41,6 +64,11 @@ namespace AnimeTrendingApp.ViewModels
         {
             get => _filterToolbarItemText;
             set => SetProperty(ref _filterToolbarItemText, value);
+        }
+        public bool IsNotConnected
+        {
+            get => _isNotConnected;
+            set => SetProperty(ref _isNotConnected, value);
         }
 
         private async Task FetchCollection(Task<ObservableCollection<Anime>> fetchTask)

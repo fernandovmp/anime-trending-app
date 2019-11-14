@@ -24,8 +24,44 @@
             FlexLayout.Grow="1"
         >
             <ActivityIndicator
-                IsRunning="{Binding IsBusy}"
-            />
+                IsVisible="False"
+                IsRunning="False"
+            >
+                <ActivityIndicator.Triggers>
+                    <MultiTrigger
+                        TargetType="ActivityIndicator"
+                    >
+                        <MultiTrigger.Conditions>
+                            <BindingCondition Binding="{Binding IsBusy}" Value="True"/>
+                            <BindingCondition Binding="{Binding IsNotConnected}" Value="False"/>
+                        </MultiTrigger.Conditions>
+                        <Setter Property="IsVisible" Value="True"/>
+                        <Setter Property="IsRunning" Value="True"/>
+                    </MultiTrigger>
+                </ActivityIndicator.Triggers>
+            </ActivityIndicator>
+            <Grid
+                IsVisible="False"
+            >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.Triggers>
+                    <DataTrigger TargetType="Grid" Binding="{Binding IsNotConnected}" Value="True">
+                        <Setter Property="IsVisible" Value="True"/>
+                    </DataTrigger>
+                </Grid.Triggers>
+                <Image
+                    Source="cloudoffoutline.png"
+                />
+                <Label
+                    Grid.Row="1"
+                    Text="No connection :("
+                    FontSize="Large"
+                    TextColor="DarkSlateGray"
+                />
+            </Grid>
         </FlexLayout>
         <CollectionView
             ItemsSource="{Binding Trendings}"
