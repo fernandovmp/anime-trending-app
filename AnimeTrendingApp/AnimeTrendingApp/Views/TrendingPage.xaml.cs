@@ -21,13 +21,13 @@ namespace AnimeTrendingApp.Views
                 .Resolve(typeof(ViewModels.TrendingViewModel), DryIoc.IfUnresolved.ReturnDefault);
         }
 
-        private async void AnimeCardTapped(object sender, EventArgs e)
+        private void AnimeCardTapped(object sender, EventArgs e)
         {
             object anime = (sender as AnimeCard).BindingContext;
-            await Navigation.PushAsync(new AnimePage
+            Navigation.PushAsync(new AnimePage
             {
                 BindingContext = anime
-            });
+            }).GetAwaiter();
         }
     }
 }
